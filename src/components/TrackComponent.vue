@@ -16,7 +16,7 @@
 				<p>4:20</p>
 			</div>
 			<div class="cover">
-
+				<img src="../assets/cover_placeholder.jpg" alt="">
 			</div>
 			</div>
 	</div>
@@ -44,7 +44,7 @@ export default {
 	grid-template-rows: 1fr;
 	gap: 0px 0px;
 	grid-template-areas:
-    "play title title title title title title title album album album album album album duration . cover";
+    "play title title title title title title title album album album album album duration . cover cover";
 	align-items:center;
 }
 
@@ -63,6 +63,12 @@ export default {
 
 .cover {
 	grid-area: cover;
+	height: 100%;
+	overflow: hidden;
+}
+
+.cover img{
+	object-fit: cover;
 }
 
 .play{

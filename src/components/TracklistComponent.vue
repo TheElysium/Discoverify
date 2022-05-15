@@ -7,7 +7,7 @@
       </div>
       <div class="selected">
         <div class="selected-box">
-
+					<p>I Hate Models &nbsp; &#10006;</p>
         </div>
       </div>
       <div class="tracks-container">
@@ -50,5 +50,20 @@ h2{
   padding-left: 1.5vw;
   padding-right: 1.5vw;
   color: black;
+}
+
+.selected{
+	margin-top: 3vh;
+	margin-left: 1.5vw;
+	margin-bottom: 3vh;
+}
+
+.selected-box{
+	border: #3CF836 0.1rem solid;
+	width: fit-content;
+}
+
+.selected-box p{
+	margin: 0.5vh;
 }
 </style>

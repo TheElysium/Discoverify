@@ -40,6 +40,10 @@ export default {
 	background-color: #3CF836;
 }
 
+.filter-indicator{
+	margin-bottom: -3vh;
+}
+
 h2{
 	padding-left: 1.5vw;
 	padding-right: 1.5vw;
@@ -56,7 +60,7 @@ p{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: repeat(4,auto);
-	gap: 3vh 0px;
+	gap: 5vh 0px;
 	grid-template-areas:
     "low high"
     "popularity popularity"

@@ -71,21 +71,13 @@ p{
 	font-family: Sequel;
 	font-weight: 500;
 	font-size: 1.2rem;
+	margin: 0 0 2vh;
 }
 
 .slider{
 	position: relative;
 	width: 100%;
 	box-sizing: border-box;
-}
-
-#slider-track{
-	width: 100%;
-	height: 3px;
-	position: absolute;
-	margin: auto;
-	top: 0;
-	bottom: 0;
 }
 
 input[type="range"]{

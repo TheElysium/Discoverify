@@ -1,34 +1,41 @@
 <template>
 	<div>
-		{{this.bgColor}}
-		<p class="filter-name">Popularity</p>
+		<p class="filter-name">{{filterName}}</p>
 		<div class="slider">
-			<div id="slider-track" :style="{background: bg}"></div>
-			<input type="range" min="0" max="100" value="0" id="slider-min" @input="slideMin">
-			<input type="range" min="0" max="100" value="100" id="slider-max" @input="slideMax">
+			<div v-bind:id="filterName+'-slider-track'" :style="[filterTrackStyle]"></div>
+			<input type="range" min="0" max="100" value="0" v-bind:id="filterName+'-slider-min'" @input="slideMin">
+			<input type="range" min="0" max="100" value="100" v-bind:id="filterName+'-slider-max'" @input="slideMax">
 		</div>
 	</div>
 </template>
 
 <script>
-const minGap = 0;
+const minGap = 1;
 
 export default {
 	name: "FilterComponent",
+	props: {
+		filterName: String,
+	},
 	data() {
 		return {
 			min: 0,
 			max: 0,
-			bg: "#3CF836"
+			filterTrackStyle: {
+				background: "#3CF836",
+				width: "100%",
+				height: "3px",
+				position: "absolute",
+				margin: "auto",
+				top: "0",
+				bottom: "0"
+			}
 		}
-	},
-	mounted() {
-		this.fillColor();
 	},
 	methods: {
 		slideMin(){
-			let sliderMin = document.getElementById("slider-min");
-			let sliderMax = document.getElementById("slider-max");
+			let sliderMin = document.getElementById(this.filterName + "-slider-min");
+			let sliderMax = document.getElementById(this.filterName +"-slider-max");
 
 			if(parseInt(sliderMax.value) - parseInt(sliderMin.value) <= minGap){
 				sliderMin.value = parseInt(sliderMax.value) - minGap;
@@ -37,8 +44,8 @@ export default {
 			this.fillColor();
 		},
 		slideMax(){
-			let sliderMin = document.getElementById("slider-min");
-			let sliderMax = document.getElementById("slider-max");
+			let sliderMin = document.getElementById(this.filterName + "-slider-min");
+			let sliderMax = document.getElementById(this.filterName +"-slider-max");
 
 			if(parseInt(sliderMax.value) - parseInt(sliderMin.value) <= minGap){
 				sliderMax.value = parseInt(sliderMin.value) + minGap;
@@ -47,12 +54,12 @@ export default {
 			this.fillColor();
 		},
 		fillColor(){
-			let sliderMin = document.getElementById("slider-min");
-			let sliderMax = document.getElementById("slider-max");
+			let sliderMin = document.getElementById(this.filterName + "-slider-min");
+			let sliderMax = document.getElementById(this.filterName +"-slider-max");
 
 			let percent1 = (sliderMin.value / 100) * 100;
 			let percent2 = (sliderMax.value / 100) * 100;
-			this.bg = `linear-gradient(to right, white ${percent1}% , #3CF836 ${percent1}% , #3CF836 ${percent2}%, white ${percent2}%)`;
+			this.filterTrackStyle.background = `linear-gradient(to right, white ${percent1}% , #3CF836 ${percent1}% , #3CF836 ${percent2}%, white ${percent2}%)`;
 		}
 	}
 }

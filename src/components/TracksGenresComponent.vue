@@ -20,7 +20,7 @@
 			<TileComponent></TileComponent>
 		</div>
 		<div class="more">
-			<p>more artists</p>
+			<p>more artists &darr;</p>
 		</div>
 		</div>
 	</div>

@@ -8,10 +8,10 @@
 			<div class="filters-container">
 				<div class="filter-indicator low"><p>Low</p></div>
 				<div class="filter-indicator high"><p>High</p></div>
-				<FilterComponent class="popularity"></FilterComponent>
-				<FilterComponent class="energy"></FilterComponent>
-				<FilterComponent class="tempo"></FilterComponent>
-				<FilterComponent class="vocals"></FilterComponent>
+				<FilterComponent class="popularity" v-bind:filter-name="'Popularity'"></FilterComponent>
+				<FilterComponent class="energy" v-bind:filter-name="'Energy'"></FilterComponent>
+				<FilterComponent class="tempo" v-bind:filter-name="'Tempo'"></FilterComponent>
+				<FilterComponent class="vocals" v-bind:filter-name="'Vocals'"></FilterComponent>
 			</div>
 		</div>
 </template>
@@ -49,13 +49,14 @@ h2{
 p{
 	color: #3CF836;
 	font-size: 1.3rem;
+	margin: 0;
 }
 
 .filters-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: repeat(4,1fr);
-	gap: 0px 0px;
+	grid-template-rows: repeat(4,auto);
+	gap: 3vh 0px;
 	grid-template-areas:
     "low high"
     "popularity popularity"
@@ -64,6 +65,7 @@ p{
     "vocals vocals";
 	padding-left: 3vw;
 	padding-right: 3vw;
+	margin-top: 4vh;
 }
 .low {
 	grid-area: low;

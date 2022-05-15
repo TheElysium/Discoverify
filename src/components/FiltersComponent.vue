@@ -8,17 +8,22 @@
 			<div class="filters-container">
 				<div class="filter-indicator low"><p>Low</p></div>
 				<div class="filter-indicator high"><p>High</p></div>
+				<FilterComponent class="popularity"></FilterComponent>
+				<FilterComponent class="energy"></FilterComponent>
+				<FilterComponent class="tempo"></FilterComponent>
+				<FilterComponent class="vocals"></FilterComponent>
 			</div>
 		</div>
 </template>
 
 <script>
 
+import FilterComponent from "@/components/FilterComponent";
 export default {
   name: 'FiltersComponent',
   components: {
-
-}
+		FilterComponent
+	}
 }
 </script>
 
@@ -49,15 +54,14 @@ p{
 .filters-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: repeat(5, 1fr);
+	grid-template-rows: repeat(4,1fr);
 	gap: 0px 0px;
 	grid-template-areas:
     "low high"
-    "filter filter"
-    "filter filter"
-    "filter filter"
-    "filter filter"
-    "filter filter";
+    "popularity popularity"
+    "energy energy"
+    "tempo tempo"
+    "vocals vocals";
 	padding-left: 3vw;
 	padding-right: 3vw;
 }
@@ -70,8 +74,9 @@ p{
 	text-align: right;
 }
 
-.filter {
-	grid-area: filter;
-}
+.popularity { grid-area: popularity; }
+.energy { grid-area: energy; }
+.tempo { grid-area: tempo; }
+.vocals { grid-area: vocals; }
 
 </style>

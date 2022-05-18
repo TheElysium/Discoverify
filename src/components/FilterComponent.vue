@@ -3,8 +3,8 @@
 		<p class="filter-name">{{filterName}}</p>
 		<div class="slider">
 			<div v-bind:id="filterName+'-slider-track'" :style="[filterTrackStyle]"></div>
-			<input type="range" min="0" max="100" value="0" v-bind:id="filterName+'-slider-min'" @input="slideMin">
-			<input type="range" min="0" max="100" value="100" v-bind:id="filterName+'-slider-max'" @input="slideMax">
+			<input type="range" min="0" max="100" value="0" v-bind:id="filterName+'-slider-min'" @input="slideMin" @mouseup="sendValues">
+			<input type="range" min="0" max="100" value="100" v-bind:id="filterName+'-slider-max'" @input="slideMax" @mouseup="sendValues">
 		</div>
 	</div>
 </template>
@@ -19,8 +19,6 @@ export default {
 	},
 	data() {
 		return {
-			min: 0,
-			max: 0,
 			filterTrackStyle: {
 				background: "#3CF836",
 				width: "100%",
@@ -40,7 +38,6 @@ export default {
 			if(parseInt(sliderMax.value) - parseInt(sliderMin.value) <= minGap){
 				sliderMin.value = parseInt(sliderMax.value) - minGap;
 			}
-			this.min = sliderMin.value;
 			this.fillColor();
 		},
 		slideMax(){
@@ -50,7 +47,6 @@ export default {
 			if(parseInt(sliderMax.value) - parseInt(sliderMin.value) <= minGap){
 				sliderMax.value = parseInt(sliderMin.value) + minGap;
 			}
-			this.max = sliderMax.value;
 			this.fillColor();
 		},
 		fillColor(){
@@ -60,6 +56,18 @@ export default {
 			let percent1 = (sliderMin.value / 100) * 100;
 			let percent2 = (sliderMax.value / 100) * 100;
 			this.filterTrackStyle.background = `linear-gradient(to right, white ${percent1}% , #3CF836 ${percent1}% , #3CF836 ${percent2}%, white ${percent2}%)`;
+		},
+		sendValues(){
+			let sliderMin = document.getElementById(this.filterName + "-slider-min");
+			let sliderMax = document.getElementById(this.filterName +"-slider-max");
+
+			let filterValues = {
+				filterName: this.filterName,
+				min: sliderMin.value,
+				max: sliderMax.value,
+			};
+
+			this.$emit("updateFilterValues", filterValues);
 		}
 	}
 }

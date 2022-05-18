@@ -1,20 +1,28 @@
 <template>
   <div class="container">
     <HeaderComponent class="header"></HeaderComponent>
-    <ContainerComponent class="components-container"></ContainerComponent>
+    <ContainerComponent class="components-container" v-if="spotifyToken"></ContainerComponent>
+    <LoginComponent class="login" v-else></LoginComponent>
   </div>
 </template>
 
 <script>
 import HeaderComponent from './components/HeaderComponent.vue';
 import ContainerComponent from './components/ContainerComponent.vue';
+import LoginComponent from './components/LoginComponent.vue';
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
-    ContainerComponent
-  }
+    ContainerComponent,
+		LoginComponent
+  },
+	data() {
+		return {
+			spotifyToken: null,
+		}
+	}
 }
 </script>
 

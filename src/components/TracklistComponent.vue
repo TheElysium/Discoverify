@@ -7,7 +7,7 @@
       </div>
       <div class="selected">
         <div class="selected-box">
-					<p>I Hate Models &nbsp; &#10006;</p>
+					<p>I Hate Models &nbsp; <span>&#10006;</span></p>
         </div>
       </div>
       <div class="tracks-container">
@@ -61,6 +61,11 @@ h2{
 .selected-box{
 	border: #3CF836 0.1rem solid;
 	width: fit-content;
+}
+
+.selected-box:hover{
+	background-color: #3CF836;
+	color: black;
 }
 
 .selected-box p{

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tile">
+    <div class="tile" @click="select">
       <div class="gradient-over-image"></div>
       <img src="../assets/placeholder_img.jpg" alt="">
       <h2>I Hate Models #1</h2>
@@ -14,7 +14,21 @@ export default {
   name: 'TileComponent',
   components: {
 
-}
+	},
+	props: {
+		name: String,
+		spotifyId: String,
+		picture: Object,
+	},
+	methods: {
+		select(){
+			let selection = {
+				name: this.name,
+				spotifyId: this.spotifyId
+			}
+			this.$emit("updateSelection", selection);
+		}
+	}
 }
 </script>
 

@@ -48,6 +48,12 @@ export default {
 	align-items:center;
 }
 
+.track:hover{
+	background-color: #3CF836;
+	color: black;
+	transition: ease 300ms;
+}
+
 .title {
 	grid-area: title;
 	font-size: 1.2rem;
@@ -74,6 +80,7 @@ export default {
 .play{
 	grid-area: play;
 	width: 50%;
+	cursor: pointer;
 }
 
 .play img{

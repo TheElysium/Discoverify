@@ -12,15 +12,18 @@
 			</div>
 	</div>
 	<div class="tiles-container">
-		<div class="tiles-grid">
+		<div class="tiles-grid top5" v-if="!more">
+<!--	TODO En gros on chargera les 5 premiers tracks / artists, et si l'user clique sur more ... on sélectionne les 50 premiers (le max dispo avec l'API Google)-->
 			<TileComponent></TileComponent>
 			<TileComponent></TileComponent>
 			<TileComponent></TileComponent>
 			<TileComponent></TileComponent>
 			<TileComponent></TileComponent>
 		</div>
+		<div class="tiles-grid top50" v-if="more">
+		</div>
 		<div class="more">
-			<p>more artists &darr;</p>
+			<p @click="more = true" >more artists &darr;</p>
 		</div>
 		</div>
 	</div>
@@ -34,7 +37,12 @@ export default {
   name: 'TracksGenresComponent',
   components: {
       TileComponent
-  }
+  },
+	data() {
+		return{
+			more: false,
+		}
+	}
 }
 </script>
 
@@ -43,6 +51,7 @@ export default {
 .more{
 	margin: 1vh;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 .selectors-container{
@@ -94,6 +103,7 @@ export default {
 .button:hover{
 	background-color: #3CF836;
 	color: black;
+	transition: ease 300ms;
 }
 
 .search { 
@@ -103,16 +113,17 @@ export default {
 }
 
 .tiles-container{
+	grid-area: tiles-container;
 	margin: 1.2vw 1.2vw 0vw 1.2vw;
 	text-align: center;
 }
 
 .tiles-grid {
-	grid-area: tiles-container;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: repeat(auto-fill, 1fr);
-	gap: 0px 0.5vw;
+	gap: 1vw 0.5vw;
+	overflow: hidden;
 }
 
 

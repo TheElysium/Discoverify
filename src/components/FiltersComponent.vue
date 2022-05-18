@@ -8,10 +8,10 @@
 			<div class="filters-container">
 				<div class="filter-indicator low"><p>Low</p></div>
 				<div class="filter-indicator high"><p>High</p></div>
-				<FilterComponent class="popularity" v-bind:filter-name="'Popularity'"></FilterComponent>
-				<FilterComponent class="energy" v-bind:filter-name="'Energy'"></FilterComponent>
-				<FilterComponent class="tempo" v-bind:filter-name="'Tempo'"></FilterComponent>
-				<FilterComponent class="vocals" v-bind:filter-name="'Vocals'"></FilterComponent>
+				<FilterComponent class="popularity" v-bind:filter-name="'Popularity'" @updateFilterValues="updateFilterValues"></FilterComponent>
+				<FilterComponent class="energy" v-bind:filter-name="'Energy'"  @updateFilterValues="updateFilterValues"></FilterComponent>
+				<FilterComponent class="tempo" v-bind:filter-name="'Tempo'"  @updateFilterValues="updateFilterValues"></FilterComponent>
+				<FilterComponent class="vocals" v-bind:filter-name="'Vocals'"  @updateFilterValues="updateFilterValues"></FilterComponent>
 			</div>
 		</div>
 </template>
@@ -23,6 +23,46 @@ export default {
   name: 'FiltersComponent',
   components: {
 		FilterComponent
+	},
+	data() {
+		return {
+			popularity:{
+				min:0,
+				max:100
+			},
+			energy:{
+				min:0,
+				max:100
+			},
+			tempo:{
+				min:0,
+				max:100
+			},
+			vocals:{
+				min:0,
+				max:100
+			},
+		}
+	},
+	methods:{
+		updateFilterValues(val){
+			switch (val.filterName){
+				case "Popularity":
+					this.popularity = val;
+					break;
+				case "Energy":
+					this.energy = val;
+					break;
+				case "Tempo":
+					this.tempo = val;
+					break;
+				case "Vocals":
+					this.vocals = val;
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }
 </script>

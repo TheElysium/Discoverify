@@ -13,7 +13,7 @@
 	</div>
 	<div class="tiles-container">
 		<div class="tiles-grid top5" v-if="!more">
-<!--	TODO En gros on chargera les 5 premiers tracks / artists, et si l'user clique sur more ... on sélectionne les 50 premiers (le max dispo avec l'API Google)-->
+<!--	TODO En gros on chargera les 5 premiers tracks / artists, et si l'user clique sur more ... on sélectionne les 50 premiers (le max dispo avec l'API Spotify)-->
 			<TileComponent></TileComponent>
 			<TileComponent></TileComponent>
 			<TileComponent></TileComponent>

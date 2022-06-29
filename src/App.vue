@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <HeaderComponent class="header"></HeaderComponent>
-    <ContainerComponent class="components-container" v-if="spotifyToken"></ContainerComponent>
+    <ContainerComponent class="components-container" v-if="token"></ContainerComponent>
     <LoginComponent class="login" v-else></LoginComponent>
+    {{$route.query.code}}
   </div>
 </template>
 
@@ -10,19 +11,24 @@
 import HeaderComponent from './components/HeaderComponent.vue';
 import ContainerComponent from './components/ContainerComponent.vue';
 import LoginComponent from './components/LoginComponent.vue';
+import { token } from './stores/store'
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
     ContainerComponent,
-		LoginComponent
+    LoginComponent
   },
 	data() {
 		return {
-			spotifyToken: null,
+      token,
 		}
-	}
+	},
+  created() {
+    let urlParams = new URLSearchParams(window.location.search);
+    this.token = urlParams.get("code")
+  }
 }
 </script>
 

@@ -36,42 +36,42 @@ export default {
 
 @font-face {
   font-family: "Sequel";
-  src: url(./fonts/sequel/Sequel100Black-55.ttf) format("truetype");
+  src: url(fonts/sequel/Sequel100Black-55.ttf) format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Sequel";
-  src: url(./fonts/sequel/Sequel100Black-65.ttf) format("truetype");
+  src: url(fonts/sequel/Sequel100Black-65.ttf) format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Sequel";
-  src: url(./fonts/sequel/Sequel100Black-75.ttf) format("truetype");
+  src: url(fonts/sequel/Sequel100Black-75.ttf) format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Sequel";
-  src: url(./fonts/sequel/Sequel100Black-96.ttf) format("truetype");
+  src: url(fonts/sequel/Sequel100Black-96.ttf) format("truetype");
   font-weight: 900;
   font-style: italic;
 }
 
 @font-face {
 	font-family: "Poppins";
-	src: url(./fonts/poppins/Poppins-Regular.ttf) format("truetype");
+	src: url(fonts/poppins/Poppins-Regular.ttf) format("truetype");
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: "Poppins";
-	src: url(./fonts/poppins/Poppins-SemiBold.ttf) format("truetype");
+	src: url(fonts/poppins/Poppins-SemiBold.ttf) format("truetype");
 	font-weight: 600;
 	font-style: normal;
 }

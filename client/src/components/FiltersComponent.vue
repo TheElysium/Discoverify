@@ -18,7 +18,7 @@
 
 <script>
 
-import FilterComponent from "@/components/FilterComponent";
+import FilterComponent from "./FilterComponent";
 export default {
   name: 'FiltersComponent',
   components: {

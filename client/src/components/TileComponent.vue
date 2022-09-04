@@ -2,7 +2,7 @@
   <div>
     <div class="tile" @click="select">
       <div class="gradient-over-image"></div>
-      <img :src="item.images[0].url" alt="">
+      <img :src="item.image" alt="">
       <h2>{{item.name}}</h2>
     </div>
   </div>
@@ -16,7 +16,7 @@ export default {
 
 	},
 	props: {
-		item: Object
+		item: Object,
 	},
 	methods: {
 		select(){
@@ -54,5 +54,6 @@ img{
   position: absolute;
   bottom: 0;
   left: 2vh;
+  text-align: left;
 }
 </style>

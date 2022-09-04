@@ -13,13 +13,13 @@
 	</div>
 	<div class="tiles-container">
 		<div class="tiles-grid">
-      <div v-for="artist in topArtists" :key="artist">
-        <TileComponent :item="artist"></TileComponent>
+      <div v-for="item in topItems" :key="item">
+        <TileComponent :item="parseItem(item)"></TileComponent>
       </div>
 		</div>
 		<div class="more">
-			<p v-if="!more" @click="more = true" >more artists &darr;</p>
-			<p v-else @click="more = false" >less artists &uparrow;</p>
+			<p v-if="number === 5" @click="number=50" >more artists &darr;</p>
+			<p v-else @click="number=5" >less artists &uparrow;</p>
 		</div>
 		</div>
 	</div>
@@ -37,44 +37,70 @@ export default {
   },
 	data() {
 		return{
-			more: false,
-      selected: "artist",
-      topArtists: null,
-      topTracks: null,
+			number: 5,
+      selected: "tracks",
+      topItems: null,
 		}
 	},
   methods: {
     async getTopTracks(itemNumber) {
-      if(!this.topTracks){
-        try {
-          const response = await getCurrentUserTopItems("tracks", itemNumber, "short_term");
-          this.topTracks = response.data;
-        }
-        catch (error) {
-          console.log(error)
-        }
+      try {
+        const response = await getCurrentUserTopItems("tracks", itemNumber, "short_term");
+        this.topItems = response.data.items;
+        console.log(this.topItems);
+      }
+      catch (error) {
+        console.log(error)
       }
     },
     async getTopArtists(itemNumber) {
-      if(!this.topArtists){
-        try {
-          const response = await getCurrentUserTopItems("artists", itemNumber, "short_term");
-          this.topArtists = response.data.items;
-          console.log(this.topArtists);
-        }
-        catch (error) {
-          console.log(error)
-        }
+      try {
+        const response = await getCurrentUserTopItems("artists", itemNumber, "short_term");
+        this.topItems = response.data.items;
+      }
+      catch (error) {
+        console.log(error)
+      }
+    },
+    getTop() {
+      if (this.selected === "tracks") {
+        this.getTopTracks(this.number);
+      }
+      else if (this.selected === "artists") {
+        this.getTopArtists(this.number);
+      }
+    },
+    parseItem(item) {
+      let image = null;
+      if (this.selected === "artists") {
+        image = item.images[0].url;
+      } else if (this.selected === "tracks") {
+        image = item.album.images[0].url
+      }
+      return {
+        id: item.id,
+        name: item.name,
+        image: image,
       }
     }
   },
+
   created() {
-    this.getTopArtists(5);
+    this.getTop(5);
+  },
+
+  watch: {
+    selected: function() {
+      this.getTop();
+    },
+    number: function () {
+      this.getTop()
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 .more{
 	margin: 1vh;

@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div class="selectors-container">
-			<div class="artists button">
+			<div class="artists button" @click="selected='artists'" :class="selected === 'artists' ? 'selected' : ''">
 				<h2>Artists</h2>
 			</div>
-			<div class="tracks button">
+			<div class="tracks button" @click="selected='tracks'" :class="selected === 'tracks' ? 'selected' : ''">
 				<h2>Tracks</h2>
 			</div>
 			<div class="search">
@@ -12,18 +12,14 @@
 			</div>
 	</div>
 	<div class="tiles-container">
-		<div class="tiles-grid top5" v-if="!more">
-<!--	TODO En gros on chargera les 5 premiers tracks / artists, et si l'user clique sur more ... on sélectionne les 50 premiers (le max dispo avec l'API Spotify)-->
-			<TileComponent></TileComponent>
-			<TileComponent></TileComponent>
-			<TileComponent></TileComponent>
-			<TileComponent></TileComponent>
-			<TileComponent></TileComponent>
-		</div>
-		<div class="tiles-grid top50" v-if="more">
+		<div class="tiles-grid">
+      <div v-for="artist in topArtists" :key="artist">
+        <TileComponent :item="artist"></TileComponent>
+      </div>
 		</div>
 		<div class="more">
-			<p @click="more = true" >more artists &darr;</p>
+			<p v-if="!more" @click="more = true" >more artists &darr;</p>
+			<p v-else @click="more = false" >less artists &uparrow;</p>
 		</div>
 		</div>
 	</div>
@@ -32,6 +28,7 @@
 <script>
 
 import TileComponent from './TileComponent.vue';
+import {getCurrentUserTopItems} from "@/spotifyRequests";
 
 export default {
   name: 'TracksGenresComponent',
@@ -41,8 +38,39 @@ export default {
 	data() {
 		return{
 			more: false,
+      selected: "artist",
+      topArtists: null,
+      topTracks: null,
 		}
-	}
+	},
+  methods: {
+    async getTopTracks(itemNumber) {
+      if(!this.topTracks){
+        try {
+          const response = await getCurrentUserTopItems("tracks", itemNumber, "short_term");
+          this.topTracks = response.data;
+        }
+        catch (error) {
+          console.log(error)
+        }
+      }
+    },
+    async getTopArtists(itemNumber) {
+      if(!this.topArtists){
+        try {
+          const response = await getCurrentUserTopItems("artists", itemNumber, "short_term");
+          this.topArtists = response.data.items;
+          console.log(this.topArtists);
+        }
+        catch (error) {
+          console.log(error)
+        }
+      }
+    }
+  },
+  created() {
+    this.getTopArtists(5);
+  }
 }
 </script>
 
@@ -100,7 +128,7 @@ export default {
 	text-align: center;
 }
 
-.button:hover{
+.button:hover, .selected{
 	background-color: #3CF836;
 	color: black;
 	transition: ease 300ms;

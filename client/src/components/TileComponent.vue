@@ -2,8 +2,8 @@
   <div>
     <div class="tile" @click="select">
       <div class="gradient-over-image"></div>
-      <img src="../assets/placeholder_img.jpg" alt="">
-      <h2>I Hate Models #1</h2>
+      <img :src="item.images[0].url" alt="">
+      <h2>{{item.name}}</h2>
     </div>
   </div>
 </template>
@@ -16,15 +16,13 @@ export default {
 
 	},
 	props: {
-		name: String,
-		spotifyId: String,
-		picture: Object,
+		item: Object
 	},
 	methods: {
 		select(){
 			let selection = {
-				name: this.name,
-				spotifyId: this.spotifyId
+				name: this.item.name,
+				spotifyId: this.item.id
 			}
 			this.$emit("updateSelection", selection);
 		}

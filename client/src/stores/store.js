@@ -1,15 +1,37 @@
 import { reactive } from 'vue'
 
-export const access_token = reactive({
-    access_token: null,
+export const token = reactive({
+    accessToken: null,
+    refreshToken: null,
+    expiresIn: null,
+    timestamp: null,
+
     setAccessToken(newAccessToken) {
-        this.access_token = newAccessToken;
+        this.accessToken = newAccessToken;
+    },
+    setRefreshToken(newRefreshToken) {
+        this.refreshToken = newRefreshToken;
+    },
+    setExpiresIn(newExpirationTime) {
+        this.expiresIn = newExpirationTime;
+    },
+    setTimestamp(newTimestamp) {
+        this.timestamp = newTimestamp;
     }
 })
 
-export const refresh_token = reactive({
-    refresh_token: null,
-    setRefreshToken(newAccessToken) {
-        this.refresh_token = newAccessToken;
-    }
-})
+
+export const LOCALSTORAGE_KEYS = {
+    accessToken: 'spotify_access_token',
+    refreshToken: 'spotify_refresh_token',
+    expireTime: 'spotify_token_expire_time',
+    timestamp: 'spotify_token_timestamp',
+}
+
+// Map to retrieve localStorage values
+export const LOCALSTORAGE_VALUES = {
+    accessToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.accessToken),
+    refreshToken: window.localStorage.getItem(LOCALSTORAGE_KEYS.refreshToken),
+    expireTime: window.localStorage.getItem(LOCALSTORAGE_KEYS.expireTime),
+    timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
+};

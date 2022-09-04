@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <HeaderComponent class="header"></HeaderComponent>
-    <ContainerComponent class="components-container" v-if="access_token"></ContainerComponent>
+    <ContainerComponent class="components-container" v-if="token.accessToken"></ContainerComponent>
     <LoginComponent class="login" v-else></LoginComponent>
     {{$route.query.code}}
   </div>
@@ -11,8 +11,8 @@
 import HeaderComponent from './components/HeaderComponent.vue';
 import ContainerComponent from './components/ContainerComponent.vue';
 import LoginComponent from './components/LoginComponent.vue';
-import { access_token } from './stores/store'
-import { refresh_token } from './stores/store'
+import { token } from './stores/store'
+import {getAccessToken} from "@/login";
 
 export default {
   name: 'App',
@@ -23,21 +23,11 @@ export default {
   },
 	data() {
 		return {
-      access_token,
-      refresh_token
+      token,
 		}
 	},
   created() {
-    let urlParams = new URLSearchParams(window.location.search);
-    this.access_token = urlParams.get("access_token")
-    this.refresh_token = urlParams.get("refresh_token")
-
-    if(this.refresh_token) {
-      fetch(`/refresh_token?refresh_token=${this.refresh_token}`)
-          .then(res => res.json())
-          .then(data => console.log(data))
-          .catch(err => console.error(err));
-    }
+    getAccessToken()
   }
 }
 </script>

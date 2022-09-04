@@ -13,11 +13,7 @@ export default {
 	name: "LoginComponent",
 	data(){
 		return{
-			authUrl: "https://accounts.spotify.com/authorize?" +
-			"client_id=4b94731f947e41878f3400e277a68c85" +
-			"&response_type=code" +
-			"&redirect_uri=http://localhost:8080/" +
-			"&scope=user-read-private%20playlist-modify-private%20user-top-read"
+			authUrl: "http://localhost:8888/login"
 		}
 	}
 }

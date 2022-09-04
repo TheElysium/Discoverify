@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../../../../../../Bureau/Double Range Slider/style.css">
 <template>
 	<div>
 		<div class="track">

@@ -14,7 +14,7 @@
 	<div class="tiles-container">
 		<div class="tiles-grid">
       <div v-for="item in topItems" :key="item">
-        <TileComponent :item="parseItem(item)" @click="updateList(item)"></TileComponent>
+        <TileComponent :item="parseItem(item)" @click="updateList(item)" :selected="selectedProp.tracks.filter(t => t.id === item.id).length !== 0 || selectedProp.artists.filter(t => t.id === item.id).length !== 0"></TileComponent>
       </div>
 		</div>
 		<div class="more">
@@ -35,19 +35,20 @@ export default {
   components: {
       TileComponent
   },
+  props: {
+    selectedProp: Object
+  },
 	data() {
 		return{
 			number: 5,
       selected: "artists",
       topItems: null,
-      selectedTracks: [],
-      selectedArtists: []
 		}
 	},
   methods: {
     async getTopTracks(itemNumber) {
       try {
-        const response = await getCurrentUserTopItems("tracks", itemNumber, "medium_term");
+        const response = await getCurrentUserTopItems("tracks", itemNumber, "short_term");
         this.topItems = response.data.items;
         console.log(this.topItems);
       }
@@ -57,7 +58,7 @@ export default {
     },
     async getTopArtists(itemNumber) {
       try {
-        const response = await getCurrentUserTopItems("artists", itemNumber, "medium_term");
+        const response = await getCurrentUserTopItems("artists", itemNumber, "short_term");
         this.topItems = response.data.items;
         console.log(this.topItems);
       }
@@ -66,33 +67,30 @@ export default {
       }
     },
     updateList(item){
+      let updateSelection = this.selectedProp
       if(this.selected === "tracks") {
-        if(this.selectedTracks.includes(item)){
-          this.selectedTracks = this.selectedTracks.filter(t => t !== item);
+        if(updateSelection.tracks.includes(item)){
+          updateSelection.tracks = updateSelection.tracks.filter(t => t !== item);
         }
         else{
-          if(this.selectedTracks.length < 5) {
-            this.selectedTracks.push(item)
+          if(updateSelection.tracks.length < 5) {
+            updateSelection.tracks.push(item)
           }
         }
-        console.log(this.selectedTracks)
+        console.log(updateSelection.tracks)
       }
       else{
-        if(this.selectedArtists.includes(item)){
-          this.selectedArtists = this.selectedArtists.filter(t => t !== item);
+        if(updateSelection.artists.includes(item)){
+          updateSelection.artists = updateSelection.artists.filter(t => t !== item);
         }
         else{
-          if(this.selectedArtists.length < 5) {
-            this.selectedArtists.push(item)
+          if(updateSelection.artists.length < 5) {
+            updateSelection.artists.push(item)
           }
         }
-        console.log(this.selectedArtists)
+        console.log(updateSelection.artists)
       }
-      let selected = {
-        artists: this.selectedArtists,
-        tracks: this.selectedTracks
-      }
-      this.$emit("updateSelected", selected)
+      this.$emit("updateSelected", updateSelection)
     },
     getTop() {
       if (this.selected === "tracks") {
@@ -186,10 +184,14 @@ export default {
 	text-align: center;
 }
 
+.button {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
 .button:hover, .selected{
 	background-color: #3CF836;
 	color: black;
-	transition: ease 300ms;
 }
 
 .search { 

@@ -11,6 +11,11 @@
             <p>{{artist.name}}&nbsp; <span>&#10006;</span></p>
           </div>
         </div>
+        <div v-for="track in tracks" v-bind:key="track">
+          <div class="selected-box"  v-on:click="removeSelected(track)">
+            <p>{{track.name}}&nbsp; <span>&#10006;</span></p>
+          </div>
+        </div>
       </div>
       <div class="tracks-container">
         <div v-if="recommendedTracks">
@@ -76,6 +81,7 @@ h2{
 	border: #3CF836 0.1rem solid;
 	width: fit-content;
   margin-right: 1vw;
+  transition: 0.2s ease-in-out;
 }
 
 .selected-box:hover{

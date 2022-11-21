@@ -1,6 +1,6 @@
 <template>
   <div>
-		<TracksGenresComponent class="tracks-genres" @updateSelected="updateSelected"></TracksGenresComponent>
+		<TracksGenresComponent class="tracks-genres" @updateSelected="updateSelected" v-bind:selected-prop="selected"></TracksGenresComponent>
     <TracklistComponent class="tracklist" @removeSelected="removeSelected" v-bind:recommended-tracks="recommendedTracks.tracks" v-bind:artists="selected.artists" v-bind:tracks="selected.tracks"></TracklistComponent>
     <FiltersComponent class="filters" @updateFiltersValues="updateFiltersValues"></FiltersComponent>
   </div>

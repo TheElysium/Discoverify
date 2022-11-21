@@ -14,7 +14,7 @@
 	<div class="tiles-container">
 		<div class="tiles-grid">
       <div v-for="item in topItems" :key="item">
-        <TileComponent :item="parseItem(item)"></TileComponent>
+        <TileComponent :item="parseItem(item)" @click="updateList(item)"></TileComponent>
       </div>
 		</div>
 		<div class="more">
@@ -38,14 +38,16 @@ export default {
 	data() {
 		return{
 			number: 5,
-      selected: "tracks",
+      selected: "artists",
       topItems: null,
+      selectedTracks: [],
+      selectedArtists: []
 		}
 	},
   methods: {
     async getTopTracks(itemNumber) {
       try {
-        const response = await getCurrentUserTopItems("tracks", itemNumber, "short_term");
+        const response = await getCurrentUserTopItems("tracks", itemNumber, "medium_term");
         this.topItems = response.data.items;
         console.log(this.topItems);
       }
@@ -55,12 +57,42 @@ export default {
     },
     async getTopArtists(itemNumber) {
       try {
-        const response = await getCurrentUserTopItems("artists", itemNumber, "short_term");
+        const response = await getCurrentUserTopItems("artists", itemNumber, "medium_term");
         this.topItems = response.data.items;
+        console.log(this.topItems);
       }
       catch (error) {
         console.log(error)
       }
+    },
+    updateList(item){
+      if(this.selected === "tracks") {
+        if(this.selectedTracks.includes(item)){
+          this.selectedTracks = this.selectedTracks.filter(t => t !== item);
+        }
+        else{
+          if(this.selectedTracks.length < 5) {
+            this.selectedTracks.push(item)
+          }
+        }
+        console.log(this.selectedTracks)
+      }
+      else{
+        if(this.selectedArtists.includes(item)){
+          this.selectedArtists = this.selectedArtists.filter(t => t !== item);
+        }
+        else{
+          if(this.selectedArtists.length < 5) {
+            this.selectedArtists.push(item)
+          }
+        }
+        console.log(this.selectedArtists)
+      }
+      let selected = {
+        artists: this.selectedArtists,
+        tracks: this.selectedTracks
+      }
+      this.$emit("updateSelected", selected)
     },
     getTop() {
       if (this.selected === "tracks") {

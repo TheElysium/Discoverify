@@ -26,42 +26,54 @@ export default {
 	},
 	data() {
 		return {
-			popularity:{
-				min:0,
-				max:100
-			},
-			energy:{
-				min:0,
-				max:100
-			},
-			tempo:{
-				min:0,
-				max:100
-			},
-			vocals:{
-				min:0,
-				max:100
-			},
+      filtersProp: {
+        popularity:{
+          filterName: "Popularity",
+          min:0,
+          max:100
+        },
+        energy:{
+          filterName: "Energy",
+          min:0,
+          max:100
+        },
+        tempo:{
+          filterName: "Tempo",
+          min:0,
+          max:100
+        },
+        vocals:{
+          filterName: "Vocals",
+          min:0,
+          max:100
+        },
+      }
 		}
 	},
 	methods:{
 		updateFilterValues(val){
 			switch (val.filterName){
 				case "Popularity":
-					this.popularity = val;
+					this.filtersProp.popularity = val;
 					break;
 				case "Energy":
-					this.energy = val;
+					this.filtersProp.energy = val;
 					break;
-				case "Tempo":
-					this.tempo = val;
+        case "Tempo":
+					this.filtersProp.tempo = val;
 					break;
 				case "Vocals":
-					this.vocals = val;
+					this.filtersProp.vocals = val;
 					break;
 				default:
 					break;
 			}
+      // filters.setPopularity(this.filters.popularity.min, this.filters.popularity.max);
+      // filters.setEnergy(this.filters.energy.min, this.filters.energy.max);
+      // filters.setTempo(this.filters.tempo.min, this.filters.tempo.max);
+      // filters.setVocals(this.filters.vocals.min, this.filters.vocals.max);
+
+      this.$emit('updateFiltersValues', this.filtersProp);
 		}
 	}
 }
@@ -110,6 +122,7 @@ p{
 	padding-left: 3vw;
 	padding-right: 3vw;
 	margin-top: 4vh;
+	margin-bottom: 5vh;
 }
 .low {
 	grid-area: low;

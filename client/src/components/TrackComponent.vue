@@ -1,31 +1,46 @@
 <template>
 	<div>
-		<div class="track">
-			<div class="play">
+		<div class="track" v-if="track">
+			<div class="play" v-on:click="playTrack(track.uri)">
 					<img src="../assets/play.png" alt="">
 			</div>
 			<div class="title">
-					<p class="name">Lorem ipsum sin</p>
-					<p class="artist">Dolor amet</p>
+					<p class="name">{{track.name}}</p>
+					<p class="artist">{{track.artists[0].name}}</p>
 			</div>
 			<div class="album">
-				<p>ouaiisss</p>
+				<p>{{track.album.name}}</p>
 			</div>
 			<div class="duration">
-				<p>4:20</p>
+				<p>{{millisToMinutesAndSeconds(track.duration_ms)}}</p>
 			</div>
 			<div class="cover">
-				<img src="../assets/cover_placeholder.jpg" alt="">
+				<img :src="track.album.images[0].url">
 			</div>
-			</div>
+    </div>
 	</div>
 </template>
 
 <script>
 
+import {playTrack} from "@/spotifyRequests";
+
 export default {
   name: 'TrackComponent',
   components: {
+  },
+  props: {
+    track: Object,
+  },
+  methods: {
+    millisToMinutesAndSeconds(millis) {
+      let minutes = Math.floor(millis / 60000);
+      let seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    },
+    playTrack(uri){
+      playTrack([uri])
+    }
   }
 }
 </script>

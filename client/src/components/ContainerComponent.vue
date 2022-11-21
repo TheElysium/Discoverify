@@ -1,8 +1,8 @@
 <template>
   <div>
-		<TracksGenresComponent class="tracks-genres"></TracksGenresComponent>
-    <TracklistComponent class="tracklist"></TracklistComponent>
-    <FiltersComponent class="filters"></FiltersComponent>
+		<TracksGenresComponent class="tracks-genres" @updateSelected="updateSelected"></TracksGenresComponent>
+    <TracklistComponent class="tracklist" @removeSelected="removeSelected" v-bind:recommended-tracks="recommendedTracks.tracks" v-bind:artists="selected.artists" v-bind:tracks="selected.tracks"></TracklistComponent>
+    <FiltersComponent class="filters" @updateFiltersValues="updateFiltersValues"></FiltersComponent>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import TracklistComponent from './TracklistComponent.vue';
 import TracksGenresComponent from './TracksGenresComponent.vue';
 import FiltersComponent from './FiltersComponent.vue';
+import {getRecommendedTracks} from "@/spotifyRequests";
 
 export default {
   name: 'ContainerComponent',
@@ -17,7 +18,95 @@ export default {
     TracksGenresComponent,
     TracklistComponent,
     FiltersComponent
-	}
+	},
+  data() {
+    return {
+      filters: {
+        popularity:{
+          filterName: "Popularity",
+          min:0,
+          max:100
+        },
+        energy:{
+          filterName: "Energy",
+          min:0,
+          max:100
+        },
+        tempo:{
+          filterName: "Tempo",
+          min:0,
+          max:100
+        },
+        vocals:{
+          filterName: "Vocals",
+          min:0,
+          max:100
+        },
+      },
+      selected: {
+        artists: [],
+        tracks: []
+      },
+      recommendedTracks: [],
+    }
+  },
+  methods: {
+    removeSelected(val){
+      this.selected.artists = this.selected.artists.filter(a => a.id !== val.id)
+      this.selected.tracks = this.selected.tracks.filter(a => a.id !== val.id)
+      this.updateSelected(this.selected)
+    },
+    updateFiltersValues(val){
+      console.log(val.popularity.min + " === " + this.filters.popularity.min + " ? ");
+      this.filters = val;
+      this.fetchRecommendedTracks()
+    },
+    updateSelected(val){
+      this.selected = val;
+      if(this.selected.tracks.length !== 0 || this.selected.artists.length !== 0) {
+        this.fetchRecommendedTracks();
+      }
+      else {
+        this.recommendedTracks = []
+      }
+      console.log(this.selected)
+    },
+    async fetchRecommendedTracks(){
+      try {
+        this.recommendedTracks = await getRecommendedTracks(
+            this.parseSelection(this.selected.tracks),
+            this.parseSelection(this.selected.artists),
+            20,
+            this.filters.popularity.min,
+            this.filters.energy.min/100,
+            this.filters.tempo.min*2,
+            this.filters.vocals.min/100,
+            this.filters.popularity.max,
+            this.filters.energy.max/100,
+            this.filters.tempo.max*2,
+            this.filters.vocals.max/100,
+            // seed_artists: seed_artists,
+            // limit: limit,
+            // min_popularity: min_popularity,
+            // min_energy: min_energy,
+            // min_tempo: min_tempo,
+            // min_speechiness: min_speechiness,
+            // max_popularity: max_popularity,
+            // max_energy: max_energy,
+            // max_tempo: max_tempo,
+            // max_speechiness: max_speechiness
+        );
+        console.log(this.recommendedTracks)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    parseSelection(selection) {
+      let res = ""
+      selection.forEach(s => res += s.id + ",")
+      return res;
+    }
+  }
 }
 </script>
 

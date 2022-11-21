@@ -6,30 +6,43 @@
         </div>
       </div>
       <div class="selected">
-        <div class="selected-box">
-					<p>I Hate Models &nbsp; <span>&#10006;</span></p>
+        <div v-for="artist in artists" v-bind:key="artist">
+          <div class="selected-box"  v-on:click="removeSelected(artist)">
+            <p>{{artist.name}}&nbsp; <span>&#10006;</span></p>
+          </div>
         </div>
       </div>
       <div class="tracks-container">
-        <TrackComponent></TrackComponent>
-        <TrackComponent></TrackComponent>
-        <TrackComponent></TrackComponent>
-        <TrackComponent></TrackComponent>
-        <TrackComponent></TrackComponent>
-        <TrackComponent></TrackComponent>
-        <TrackComponent></TrackComponent>
+        <div v-if="recommendedTracks">
+          <div v-for="track in recommendedTracks" v-bind:key="track">
+            <TrackComponent v-bind:track="track"></TrackComponent>
+          </div>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
 import TrackComponent from './TrackComponent.vue';
+// import {getRecommendedTracks} from "@/spotifyRequests";
+// import {filters} from "@/stores/store";
 
 export default {
   name: 'TracklistComponent',
   components: {
     TrackComponent
-  }
+  },
+  props: {
+    artists: Array,
+    tracks: Array,
+    recommendedTracks: Object
+  },
+  methods: {
+    removeSelected(selection){
+      console.log("remove")
+      this.$emit("removeSelected", selection)
+    }
+  },
 }
 </script>
 
@@ -56,11 +69,13 @@ h2{
 	margin-top: 3vh;
 	margin-left: 1.5vw;
 	margin-bottom: 3vh;
+  display: flex
 }
 
 .selected-box{
 	border: #3CF836 0.1rem solid;
 	width: fit-content;
+  margin-right: 1vw;
 }
 
 .selected-box:hover{

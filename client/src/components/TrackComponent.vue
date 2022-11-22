@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<div class="track" v-if="track">
-			<div class="play" v-on:click="playTrack(track.uri)">
+		<div class="track" v-if="track" @mouseenter="playPreview" @mouseleave="stopPreview">
+			<div class="play" v-on:click="playTrack">
 					<img src="../assets/play.png" alt="">
 			</div>
 			<div class="title">
@@ -32,14 +32,49 @@ export default {
   props: {
     track: Object,
   },
+  data(){
+    return{
+      preview: new Audio(this.track.preview_url),
+      hovered: false,
+    }
+  },
+  created() {
+    this.preview.volume = 0.0
+  },
   methods: {
     millisToMinutesAndSeconds(millis) {
       let minutes = Math.floor(millis / 60000);
       let seconds = ((millis % 60000) / 1000).toFixed(0);
       return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     },
-    playTrack(uri){
-      playTrack([uri])
+    playTrack(){
+      playTrack([this.track.uri])
+    },
+    fadeIn() {
+      if (this.preview.volume < .9 && this.hovered === true) {
+        this.preview.volume += .1;
+        setTimeout(this.fadeIn, 200);
+      }
+      console.log(this.preview.volume)
+    },
+    fadeOut() {
+      if (this.preview.volume >= 0) {
+        this.preview.volume -= .1;
+        setTimeout(this.fadeOut, 100);
+      }
+      console.log(this.preview.volume)
+    },
+    playPreview(){
+      this.hovered = true
+      this.preview.load()
+      this.preview.play()
+      this.fadeIn()
+    },
+    stopPreview(){
+      this.hovered = false
+      // this.preview.load()
+      // this.preview.volume = 0
+      this.fadeOut()
     }
   }
 }

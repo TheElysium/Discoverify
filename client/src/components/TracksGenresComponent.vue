@@ -132,10 +132,23 @@ export default {
 
 <style scoped>
 
+.placeholder{
+  position: relative;
+  width: 100%;
+  height: 12vw;
+  box-sizing: border-box;
+  transition: 0.2s ease-in-out;
+}
+
 .more{
-	margin: 1vh;
+	/*margin: 1vh;*/
 	font-weight: bold;
-	cursor: pointer;
+  text-align: center;
+}
+
+.more p {
+  display: inline-block;
+  cursor: pointer;
 }
 
 .selectors-container{

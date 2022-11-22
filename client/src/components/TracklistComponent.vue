@@ -18,11 +18,11 @@
         </div>
       </div>
       <div class="tracks-container">
-        <div v-if="recommendedTracks">
-          <div v-for="track in recommendedTracks" v-bind:key="track">
-            <TrackComponent v-bind:track="track"></TrackComponent>
+          <div v-if="recommendedTracks">
+            <div v-for="track in recommendedTracks" v-bind:key="track">
+              <TrackComponent v-bind:track="track"></TrackComponent>
+            </div>
           </div>
-        </div>
       </div>
     </div>
 </template>
@@ -62,6 +62,19 @@ export default {
   height: 100%;
   width: fit-content;
   background-color: #3CF836;
+}
+
+.fade-in-enter-active {
+  transition: all 0.5s ease;
+}
+
+.fade-in-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-in-enter, .fade-in-leave-to {
+  position: absolute; /* add for smooth transition between elements */
+  opacity: 0;
 }
 
 h2{

@@ -15,8 +15,6 @@ export default {
   components: {
 
 	},
-  data() {
-  },
 	props: {
 		item: Object,
     selected: Boolean

@@ -17,7 +17,7 @@
         <TileComponent :item="parseItem(item)" @click="updateList(item)" :selected="selectedProp.tracks.filter(t => t.id === item.id).length !== 0 || selectedProp.artists.filter(t => t.id === item.id).length !== 0"></TileComponent>
       </div>
 		</div>
-		<div class="more">
+    <div class="more">
 			<p v-if="number === 5" @click="number=50" >more artists &darr;</p>
 			<p v-else @click="number=5" >less artists &uparrow;</p>
 		</div>
@@ -138,6 +138,7 @@ export default {
   height: 12vw;
   box-sizing: border-box;
   transition: 0.2s ease-in-out;
+  background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(60, 248, 54, 0.7));
 }
 
 .more{

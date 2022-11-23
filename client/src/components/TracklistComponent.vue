@@ -87,7 +87,8 @@ h2{
 	margin-top: 3vh;
 	margin-left: 1.5vw;
 	margin-bottom: 3vh;
-  display: flex
+  display: flex;
+  cursor: pointer;
 }
 
 .selected-box{
@@ -104,5 +105,9 @@ h2{
 
 .selected-box p{
 	margin: 0.5vh;
+}
+
+.tracks-container{
+  margin-bottom: 5vh;
 }
 </style>

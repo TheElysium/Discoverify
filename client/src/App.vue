@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <HeaderComponent class="header"></HeaderComponent>
-    <ContainerComponent class="components-container" v-if="token.accessToken"></ContainerComponent>
+    <ContainerComponent class="components-container" v-if="accessToken"></ContainerComponent>
     <LoginComponent class="login" v-else></LoginComponent>
     {{$route.query.code}}
   </div>
@@ -11,8 +11,7 @@
 import HeaderComponent from './components/HeaderComponent.vue';
 import ContainerComponent from './components/ContainerComponent.vue';
 import LoginComponent from './components/LoginComponent.vue';
-import { token } from './stores/store'
-import {getAccessToken} from "@/login";
+import {accessToken} from "@/login";
 
 export default {
   name: 'App',
@@ -23,11 +22,11 @@ export default {
   },
 	data() {
 		return {
-      token,
+      accessToken,
 		}
 	},
   created() {
-    getAccessToken()
+    // getAccessToken()
   }
 }
 </script>

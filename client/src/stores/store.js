@@ -47,25 +47,25 @@ export const selected = reactive({
     },
 })
 
-export const token = reactive({
-    accessToken: null,
-    refreshToken: null,
-    expiresIn: null,
-    timestamp: null,
-
-    setAccessToken(newAccessToken) {
-        this.accessToken = newAccessToken;
-    },
-    setRefreshToken(newRefreshToken) {
-        this.refreshToken = newRefreshToken;
-    },
-    setExpiresIn(newExpirationTime) {
-        this.expiresIn = newExpirationTime;
-    },
-    setTimestamp(newTimestamp) {
-        this.timestamp = newTimestamp;
-    }
-})
+// export const token = reactive({
+//     accessToken: null,
+//     refreshToken: null,
+//     expiresIn: null,
+//     timestamp: null,
+//
+//     setAccessToken(newAccessToken) {
+//         this.accessToken = newAccessToken;
+//     },
+//     setRefreshToken(newRefreshToken) {
+//         this.refreshToken = newRefreshToken;
+//     },
+//     setExpiresIn(newExpirationTime) {
+//         this.expiresIn = newExpirationTime;
+//     },
+//     setTimestamp(newTimestamp) {
+//         this.timestamp = newTimestamp;
+//     }
+// })
 
 
 export const LOCALSTORAGE_KEYS = {

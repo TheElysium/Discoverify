@@ -1,41 +1,38 @@
-import {token} from "@/stores/store";
-import {refreshToken} from "@/spotifyRequests";
+import {LOCALSTORAGE_KEYS, LOCALSTORAGE_VALUES} from "@/stores/store";
 import axios from "axios";
 
 export const getAccessToken = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const queryParams = {
-        accessToken: urlParams.get('access_token'),
-        refreshToken: urlParams.get('refresh_token'),
-        expireTime: urlParams.get('expires_in'),
+        [LOCALSTORAGE_KEYS.accessToken]: urlParams.get('access_token'),
+        [LOCALSTORAGE_KEYS.refreshToken]: urlParams.get('refresh_token'),
+        [LOCALSTORAGE_KEYS.expireTime]: urlParams.get('expires_in'),
     };
     const hasError = urlParams.get('error');
     console.log(queryParams);
 
     // If there's an error OR the token in localStorage has expired, refresh the token
-    if (hasError || hasTokenExpired() || token.accessToken === 'undefined') {
+    if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === 'undefined') {
+        console.log("refrest")
         refreshToken();
     }
 
     // If there is a valid access token in localStorage, use that
-    if (token.accessToken && token.accessToken !== 'undefined') {
-        return token.accessToken;
+    if (LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== 'undefined') {
+        return LOCALSTORAGE_VALUES.accessToken;
     }
 
     // If there is a token in the URL query params, user is logging in for the first time
-    if (queryParams["accessToken"]) {
-        // Store the query params in localStorage
-
-        token.setAccessToken(queryParams["accessToken"])
-        axios.defaults.headers['Authorization'] = 'Bearer ' + token.accessToken;
-
-        token.setRefreshToken(queryParams["refreshToken"])
-        token.setExpiresIn(queryParams["expireTime"])
+    if (queryParams[LOCALSTORAGE_KEYS.accessToken]) {
+        for (const property in queryParams) {
+            window.localStorage.setItem(property, queryParams[property]);
+        }
         // Set timestamp
-        token.setTimestamp(Date.now())
+        window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
+        axios.defaults.headers['Authorization'] = 'Bearer ' + LOCALSTORAGE_VALUES.accessToken;
         // Return access token from query params
-        return token.accessToken;
+        return queryParams[LOCALSTORAGE_KEYS.accessToken];
     }
 
     // We should never get here!
@@ -43,18 +40,47 @@ export const getAccessToken = () => {
 };
 
 const hasTokenExpired = () => {
-    if (!token.accessToken || !token.timestamp) {
+    const { accessToken, timestamp, expireTime } = LOCALSTORAGE_VALUES;
+    if (!accessToken || !timestamp) {
         return false;
     }
-    const millisecondsElapsed = Date.now() - Number(token.timestamp);
-    return (millisecondsElapsed / 1000) > Number(token.expiresIn);
+    const millisecondsElapsed = Date.now() - Number(timestamp);
+    return (millisecondsElapsed / 1000) > Number(expireTime);
 };
 
 export const logout = () => {
     // Clear all localStorage items
-    token.setAccessToken(null)
-    token.setRefreshToken(null)
-    token.setExpiresIn(null)
+    for (const property in LOCALSTORAGE_KEYS) {
+        window.localStorage.removeItem(LOCALSTORAGE_KEYS[property]);
+    }
     // Navigate to homepage
     window.location = window.location.origin;
 };
+
+export const refreshToken = async () => {
+    try {
+        // Logout if there's no refresh token stored or we've managed to get into a reload infinite loop
+        if (!LOCALSTORAGE_VALUES.refreshToken ||
+            LOCALSTORAGE_VALUES.refreshToken === 'undefined' ||
+            (Date.now() - Number(LOCALSTORAGE_VALUES.timestamp) / 1000) < 1000
+        ) {
+            console.error('No refresh token available');
+            logout();
+        }
+
+        // Use `/refresh_token` endpoint from our Node app
+        const { data } = await axios.get(`http://localhost:8888/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
+
+        // Update localStorage values
+        window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.access_token);
+        window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
+
+        // Reload the page for localStorage updates to be reflected
+        window.location.reload();
+
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const accessToken = getAccessToken();

@@ -76,6 +76,6 @@ img{
 }
 
 .selected-frame {
-  border: #3CF836 solid;
+  border: 0.2rem #3CF836 solid;
 }
 </style>

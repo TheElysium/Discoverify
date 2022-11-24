@@ -4,9 +4,12 @@ const express = require('express');
 const axios = require('axios');
 const querystring = require('querystring');
 const cors = require('cors');
+const path = require('path');
+
 
 const app = express();
 app.use(cors());
+app.use(express.static(path.resolve(__dirname, '../client/build')))
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
@@ -20,10 +23,6 @@ console.log(process.env.CLIENT_ID);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
-});
-
-app.listen(PORT, () => {
-    console.log(`Express app listening at ${FRONTEND_URI}:${PORT}`);
 });
 
 /**
@@ -120,3 +119,12 @@ app.get('/refresh_token', (req, res) => {
             res.send(error);
         });
 });
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Express app listening at ${FRONTEND_URI}:${PORT}`);
+});
+

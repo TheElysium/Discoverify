@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="login-button-container">
+		<div id="login-button-container">
 			<a v-bind:href="authUrl">
 				Login with Spotify
 			</a>
@@ -20,5 +20,13 @@ export default {
 </script>
 
 <style scoped>
+
+#login-button-container{
+  background-color: #3CF836;
+  width: 70%;
+  height: 5vh;
+  text-align: center;
+  vertical-align: middle;
+}
 
 </style>

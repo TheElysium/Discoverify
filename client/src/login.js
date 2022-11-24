@@ -10,8 +10,6 @@ export const getAccessToken = () => {
         [LOCALSTORAGE_KEYS.expireTime]: urlParams.get('expires_in'),
     };
     const hasError = urlParams.get('error');
-    console.log(queryParams);
-
     // If there's an error OR the token in localStorage has expired, refresh the token
     if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === 'undefined') {
         console.log("refrest")
@@ -20,17 +18,19 @@ export const getAccessToken = () => {
 
     // If there is a valid access token in localStorage, use that
     if (LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== 'undefined') {
+        console.log("2")
         return LOCALSTORAGE_VALUES.accessToken;
     }
 
     // If there is a token in the URL query params, user is logging in for the first time
     if (queryParams[LOCALSTORAGE_KEYS.accessToken]) {
+        console.log("1")
         for (const property in queryParams) {
             window.localStorage.setItem(property, queryParams[property]);
         }
         // Set timestamp
         window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
-        axios.defaults.headers['Authorization'] = 'Bearer ' + LOCALSTORAGE_VALUES.accessToken;
+        window.history.replaceState({}, document.title, "/")
         // Return access token from query params
         return queryParams[LOCALSTORAGE_KEYS.accessToken];
     }

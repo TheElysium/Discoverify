@@ -73,7 +73,7 @@ export default {
           updateSelection.tracks = updateSelection.tracks.filter(t => t !== item);
         }
         else{
-          if(updateSelection.tracks.length < 5) {
+          if(updateSelection.tracks.length + updateSelection.artists.length < 5) {
             updateSelection.tracks.push(item)
           }
         }
@@ -84,7 +84,7 @@ export default {
           updateSelection.artists = updateSelection.artists.filter(t => t !== item);
         }
         else{
-          if(updateSelection.artists.length < 5) {
+          if(updateSelection.tracks.length + updateSelection.artists.length < 5){
             updateSelection.artists.push(item)
           }
         }
@@ -226,6 +226,7 @@ export default {
 	grid-template-rows: repeat(auto-fill, 1fr);
 	gap: 1vw 0.5vw;
 	overflow: hidden;
+  /*height: 12vw;*/
 }
 
 

@@ -110,6 +110,12 @@ p{
     "components-container components-container components-container components-container components-container"
 }
 
+.login{
+  grid-area: components-container;
+  grid-column: 3;
+  align-self: center;
+}
+
 .header { grid-area: header; }
 
 .components-container { 

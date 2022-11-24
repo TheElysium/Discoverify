@@ -88,7 +88,6 @@ h2{
 	margin-left: 1.5vw;
 	margin-bottom: 3vh;
   display: flex;
-  cursor: pointer;
 }
 
 .selected-box{
@@ -96,6 +95,7 @@ h2{
 	width: fit-content;
   margin-right: 1vw;
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .selected-box:hover{

@@ -10,7 +10,7 @@
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "cd server && npm start",
     "client": "cd client && npm run serve",
-    "postinstall": "cd client && npm install && cd ../server && npm install",
+    "heroku-postinstall": "cd client && npm install && cd ../server && npm install",
     "build": "NODE_ENV=production cd client/ && npm install && npm run build",
     "start-server": "node server/index.js"
   }

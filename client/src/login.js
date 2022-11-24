@@ -69,7 +69,11 @@ export const refreshToken = async () => {
         }
 
         // Use `/refresh_token` endpoint from our Node app
-        const { data } = await axios.get(`http://localhost:8888/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
+        let refreshUrl = process.env.NODE_ENV !== 'production'
+            ? 'http://localhost:8888'
+            : 'https://app-discoverify.herokuapp.com';
+
+        const { data } = await axios.get(`${refreshUrl}/refresh_token?refresh_token=${LOCALSTORAGE_VALUES.refreshToken}`);
 
         // Update localStorage values
         window.localStorage.setItem(LOCALSTORAGE_KEYS.accessToken, data.access_token);

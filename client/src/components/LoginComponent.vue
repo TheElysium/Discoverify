@@ -13,7 +13,9 @@ export default {
 	name: "LoginComponent",
 	data(){
 		return{
-			authUrl: "http://localhost:8888/login"
+			authUrl:   process.env.NODE_ENV !== 'production'
+          ? 'http://localhost:8888/login'
+          : 'https://app-discoverify.herokuapp.com/login',
 		}
 	}
 }

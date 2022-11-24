@@ -11,8 +11,10 @@ app.use(cors());
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
-const PORT = process.env.PORT;
-const REDIRECT_URI = 'http://localhost:' + PORT + '/callback';
+const REDIRECT_URI = process.env.REDIRECT_URI;
+const FRONTEND_URI = process.env.FRONTEND_URI;
+
+const PORT = process.env.PORT || 8888;
 
 console.log(process.env.CLIENT_ID);
 
@@ -21,7 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Express app listening at http://localhost:${PORT}`);
+    console.log(`Express app listening at ${FRONTEND_URI}:${PORT}`);
 });
 
 /**
@@ -85,7 +87,7 @@ app.get('/callback', (req, res) => {
                     expires_in,
                 });
 
-                res.redirect(`http://localhost:8080/?${queryParams}`);
+                res.redirect(`${FRONTEND_URI}/?${queryParams}`);
 
             } else {
                 res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`);

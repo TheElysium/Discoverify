@@ -11,7 +11,7 @@
     "server": "cd server && npm start",
     "client": "cd client && npm run serve",
     "postinstall": "cd client && npm install && cd ../server && npm install",
-    "build": "cd client/ && npm install && npm run build && NODE_ENV=production",
+    "build": "NODE_ENV=test cd client/ && npm install && npm run build && NODE_ENV=production",
     "start-server": "node server/index.js"
   }
 }

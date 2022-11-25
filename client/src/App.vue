@@ -130,4 +130,21 @@ p{
     "tracks-genres tracks-genres tracks-genres tracks-genres "
     "tracklist tracklist tracklist filters"; 
 }
+
+@media screen and (max-width: 1800px){
+  html {font-size: 85%}
+}
+
+@media screen and (max-width: 1600px){
+  html {font-size: 75%}
+}
+
+@media screen and (max-width: 1450px){
+  html {font-size: 70%}
+}
+
+@media screen and (max-width: 1300px){
+  html {font-size: 65%}
+}
+
 </style>

@@ -1,17 +1,11 @@
 {
-  "engines": {
-    "node": "16.14.0"
+  "devDependencies": {
+    "concurrently": "^7.3.0"
   },
-  "cacheDirectories": [
-    "server/node_modules",
-    "client/node_modules"
-  ],
   "scripts": {
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "server": "cd server && npm start",
     "client": "cd client && npm run serve",
-    "postinstall": "cd client && npm install",
-    "build": "NODE_ENV=production cd client/ && npm install && npm run build",
-    "start-server": "node server/index.js"
+    "postinstall": "cd client && npm install && cd ../server && npm install"
   }
 }

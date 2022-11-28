@@ -1,8 +1,11 @@
 <template>
 	<div>
 		<div class="track" v-if="track" @mouseenter="playPreview" @mouseleave="stopPreview">
-			<div class="play" v-on:click="playTrack">
+<!--			<div class="play" v-on:click="playTrack">-->
+			<div class="play">
+        <a :href="track.external_urls.spotify" target="_blank">
 					<img src="../assets/play.png" alt="">
+        </a>
 			</div>
 			<div class="title">
 					<p class="name">{{track.name}}</p>

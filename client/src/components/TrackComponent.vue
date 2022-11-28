@@ -61,8 +61,13 @@ export default {
     },
     fadeOut() {
       if (this.preview.volume >= 0) {
-        this.preview.volume -= .1;
-        setTimeout(this.fadeOut, 100);
+        if(this.preview.volume < .1){
+          this.preview.volume = 0
+        }
+        else{
+          this.preview.volume -= .1;
+          setTimeout(this.fadeOut, 100);
+        }
       }
     },
     playPreview(){

@@ -72,26 +72,26 @@ export default {
     updateList(item){
       let updateSelection = this.selectedProp
       if(this.selected === "tracks") {
-        if(updateSelection.tracks.includes(item)){
-          updateSelection.tracks = updateSelection.tracks.filter(t => t !== item);
+        if(updateSelection.tracks.filter(t => t.id === item.id).length > 0){
+          updateSelection.tracks = updateSelection.tracks.filter(t => t.id !== item.id);
         }
         else{
           if(updateSelection.tracks.length + updateSelection.artists.length < 5) {
             updateSelection.tracks.push(item)
           }
         }
-        console.log(updateSelection.tracks)
       }
       else{
-        if(updateSelection.artists.includes(item)){
-          updateSelection.artists = updateSelection.artists.filter(t => t !== item);
+        if(updateSelection.artists.filter(t=>t.id === item.id).length > 0){
+          console.log("Remove " + item.name)
+          updateSelection.artists = updateSelection.artists.filter(t => t.id !== item.id);
         }
         else{
           if(updateSelection.tracks.length + updateSelection.artists.length < 5){
             updateSelection.artists.push(item)
           }
         }
-        console.log(updateSelection.artists)
+        console.log(updateSelection)
       }
       this.$emit("updateSelected", updateSelection)
     },

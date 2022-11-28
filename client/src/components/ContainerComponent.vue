@@ -69,7 +69,6 @@ export default {
       else {
         this.recommendedTracks = []
       }
-      console.log(this.selected)
     },
     async fetchRecommendedTracks(){
       try {
@@ -96,7 +95,6 @@ export default {
             // max_tempo: max_tempo,
             // max_speechiness: max_speechiness
         );
-        console.log(this.recommendedTracks)
       } catch (error) {
         console.log(error)
       }

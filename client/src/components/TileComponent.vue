@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tile" @click="select" :class="selected ? 'selected-frame' : ''">
+    <div class="tile" :class="selected ? 'selected-frame' : ''">
       <div class="gradient-over-image" :class="selected ? 'selected-tile' : ''"></div>
       <img :src="item.image" alt="">
       <h2>{{item.name}}</h2>

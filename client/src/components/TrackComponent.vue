@@ -95,12 +95,12 @@ export default {
 	grid-template-areas:
     "play title title title title title title title album album album album album duration . cover cover";
 	align-items:center;
+  transition: ease 300ms;
 }
 
 .track:hover{
 	background-color: #3CF836;
 	color: black;
-	transition: ease 300ms;
 }
 
 .title {

@@ -8,7 +8,7 @@
 				<h2>Tracks</h2>
 			</div>
 			<div class="search">
-				<input class="search-bar" type="text" placeholder="Seach for a track, an artist ...">
+        <SearchComponent v-bind:selected="selected" @updateSelected="updateList"></SearchComponent>
 			</div>
 	</div>
 	<div class="tiles-container">
@@ -28,12 +28,14 @@
 <script>
 
 import TileComponent from './TileComponent.vue';
+import SearchComponent from './SearchComponent.vue';
 import {getCurrentUserTopItems} from "@/spotifyRequests";
 
 export default {
   name: 'TracksGenresComponent',
   components: {
-      TileComponent
+    TileComponent,
+    SearchComponent
   },
   props: {
     selectedProp: Object
@@ -43,6 +45,7 @@ export default {
 			number: 5,
       selected: "artists",
       topItems: null,
+      query: null,
 		}
 	},
   methods: {
@@ -162,33 +165,7 @@ export default {
 	border-color: #3CF836;
 }
 
-.search-bar{
-	background-color: transparent;
-	border: none;
-	width: 100%;
-	font-family: Sequel;
-	font-weight: 700;
-	color: white;
-	font-size: 1.2rem;
-	text-align: center;
-	margin-top: 1vh;
-	margin-bottom: 1vh;
-	padding: 0;
-}
-
-.search-bar::placeholder{
-	opacity: 1;
-}
-
-.search-bar:focus{
-	outline: none;
-}
-
-.search-bar:focus::placeholder {
-	color: transparent;
-}
-
-.artists { 
+.artists {
 	grid-area: artists;
 	text-align: center;
 }
@@ -212,6 +189,7 @@ export default {
 	grid-area: search;
 	border-left: 0.2rem solid;
 	border-color: #3CF836;
+  position: relative;
 }
 
 .tiles-container{

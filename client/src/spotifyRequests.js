@@ -26,7 +26,7 @@ export const getRecommendedTracks = (seed_tracks, seed_artists, limit, min_popul
     }
 })
     .then(function (response){
-        console.log(response.data)
+        // console.log(response.data)
         return response.data;
     });
 
@@ -36,4 +36,16 @@ export const playTrack = (track_uri) => axios.put("me/player/play", {
 })
     .then(function (response){
         console.log(response.data)
+    }
+)
+
+export const search = (query) => axios.get("/search", {
+    params: {
+        q: query,
+        type: "track,artist",
+        limit: 5
+    }
+})
+    .then(function (response){
+        return response.data
     })

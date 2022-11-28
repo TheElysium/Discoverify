@@ -58,20 +58,20 @@ export default {
         this.preview.volume += .1;
         setTimeout(this.fadeIn, 200);
       }
-      console.log(this.preview.volume)
     },
     fadeOut() {
       if (this.preview.volume >= 0) {
         this.preview.volume -= .1;
         setTimeout(this.fadeOut, 100);
       }
-      console.log(this.preview.volume)
     },
     playPreview(){
-      this.hovered = true
-      this.preview.load()
-      this.preview.play()
-      this.fadeIn()
+      if(this.track.preview_url !==  null){
+        this.hovered = true
+        this.preview.load()
+        this.preview.play()
+        this.fadeIn()
+      }
     },
     stopPreview(){
       this.hovered = false

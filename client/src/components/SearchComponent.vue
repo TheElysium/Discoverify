@@ -1,8 +1,8 @@
 <template>
   <div>
-    <input class="search-bar" type="text" placeholder="Seach for a track, an artist ..." v-model="query" @focusin="focus = true" @focusout="focus = false" >
+    <input class="search-bar" type="text" placeholder="Seach for a track, an artist ..." v-model="query" @focusin="focus = true">
   </div>
-  <div v-if="result">
+  <div v-if="result && focus">
     <div  id="result-container" v-if="selected === 'artists'">
       <div v-for="r in result.artists.items" v-bind:key="r" class="result" @click="select(r)">
         <img class="result-image" :src="r.images[2].url">
@@ -40,6 +40,7 @@ export default {
   },
 	methods: {
     select(item){
+      this.focus = false
       this.$emit("updateSelected", item)
     }
   },

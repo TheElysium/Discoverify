@@ -109,6 +109,8 @@ export default {
 .track:hover{
 	background-color: #3CF836;
 	color: black;
+  margin-left: 1.2vw;
+  margin-right: 1.2vw;
 }
 
 .title {

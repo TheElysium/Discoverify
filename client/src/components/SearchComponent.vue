@@ -27,6 +27,7 @@ export default {
   components: {
 
 	},
+  emits: ["updateSelected"],
 	props: {
 		item: Object,
     selected: String
@@ -99,6 +100,7 @@ export default {
   font-size: 1.2rem;
   width: 100%;
   padding-top: 1vh;
+  margin-top: 0.2rem;
 }
 
 .result{

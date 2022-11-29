@@ -108,6 +108,7 @@ export default {
       if (this.selected === "artists") {
         image = item.images[0].url;
       } else if (this.selected === "tracks") {
+        console.log(item)
         image = item.album.images[0].url
       }
       return {

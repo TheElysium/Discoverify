@@ -105,9 +105,10 @@ export default {
     },
     parseItem(item) {
       let image = null;
-      if (this.selected === "artists") {
+      if (item.type === "artist") {
+        console.log(item)
         image = item.images[0].url;
-      } else if (this.selected === "tracks") {
+      } else if (item.type === "track") {
         console.log(item)
         image = item.album.images[0].url
       }

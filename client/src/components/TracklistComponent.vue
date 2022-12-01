@@ -2,7 +2,7 @@
     <div>
       <div class="tracklist-header">
         <div class="title-container">
-            <h2>Recommandations based on selected artists</h2>
+            <h2>Recommandations based on selected artists & tracks</h2>
         </div>
       </div>
       <div class="selected">
@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     removeSelected(selection){
-      console.log("remove")
       this.$emit("removeSelected", selection)
     }
   },

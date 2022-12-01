@@ -53,7 +53,6 @@ export default {
       try {
         const response = await getCurrentUserTopItems("tracks", itemNumber, "short_term");
         this.topItems = response.data.items;
-        console.log(this.topItems);
       }
       catch (error) {
         console.log(error)
@@ -63,7 +62,6 @@ export default {
       try {
         const response = await getCurrentUserTopItems("artists", itemNumber, "short_term");
         this.topItems = response.data.items;
-        console.log(this.topItems);
       }
       catch (error) {
         console.log(error)
@@ -83,7 +81,6 @@ export default {
       }
       else{
         if(updateSelection.artists.filter(t=>t.id === item.id).length > 0){
-          console.log("Remove " + item.name)
           updateSelection.artists = updateSelection.artists.filter(t => t.id !== item.id);
         }
         else{
@@ -91,7 +88,6 @@ export default {
             updateSelection.artists.push(item)
           }
         }
-        console.log(updateSelection)
       }
       this.$emit("updateSelected", updateSelection)
     },
@@ -106,10 +102,8 @@ export default {
     parseItem(item) {
       let image = null;
       if (item.type === "artist") {
-        console.log(item)
         image = item.images[0].url;
       } else if (item.type === "track") {
-        console.log(item)
         image = item.album.images[0].url
       }
       return {

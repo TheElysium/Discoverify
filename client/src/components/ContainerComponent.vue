@@ -57,7 +57,6 @@ export default {
       this.updateSelected(this.selected)
     },
     updateFiltersValues(val){
-      console.log(val.popularity.min + " === " + this.filters.popularity.min + " ? ");
       this.filters = val;
       this.fetchRecommendedTracks()
     },

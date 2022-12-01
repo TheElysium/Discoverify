@@ -54,7 +54,6 @@ export default {
         else{
           this.result = await search(this.query)
         }
-        console.log(this.result)
       } catch (error) {
         console.log(error)
       }

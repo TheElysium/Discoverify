@@ -6,7 +6,7 @@
     "node": "16.14.0"
   },
   "cacheDirectories": [
-    "serve/node_modules",
+    "server/node_modules",
     "client/node_modules"
   ],
   "scripts": {

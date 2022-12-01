@@ -18,8 +18,6 @@ const FRONTEND_URI = process.env.FRONTEND_URI;
 
 const PORT = process.env.PORT || 8888;
 
-console.log(process.env.CLIENT_ID);
-
 /**
  * Generates a random string containing numbers and letters to prevent CSRF attacks
  * @param  {number} length The length of the string

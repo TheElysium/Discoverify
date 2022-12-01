@@ -27,6 +27,7 @@ export default {
 	},
   created() {
     // getAccessToken()
+    // window.addEventListener("beforeunload", logout);
   }
 }
 </script>

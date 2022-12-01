@@ -79,6 +79,22 @@ export default {
 
 .search-bar::placeholder{
   opacity: 1;
+  color: white;
+}
+
+::-webkit-input-placeholder {
+  opacity: 1;
+  color: white;
+}
+
+::-moz-placeholder {
+  opacity: 1;
+  color: white;
+}
+
+::placeholder {
+  opacity: 1;
+  color: white;
 }
 
 .search-bar:focus{

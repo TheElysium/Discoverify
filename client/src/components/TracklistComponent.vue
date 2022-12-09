@@ -18,11 +18,16 @@
         </div>
       </div>
       <div class="tracks-container">
-          <div v-if="recommendedTracks">
-            <div v-for="track in recommendedTracks" v-bind:key="track">
-              <TrackComponent v-bind:track="track"></TrackComponent>
-            </div>
+        <div v-if="recommendedTracks">
+          <div v-for="track in recommendedTracks" v-bind:key="track">
+            <TrackComponent v-bind:track="track"></TrackComponent>
           </div>
+        </div>
+        <div v-else-if="tracks.length !== 0 || artists.length !== 0">
+          <div v-for="i in 20" :key="i" class="track">
+<!--            <img src="../assets/track-fill.svg" alt="">-->
+          </div>
+        </div>
       </div>
     </div>
 </template>
@@ -51,6 +56,21 @@ export default {
 </script>
 
 <style scoped>
+
+@keyframes fadeIn {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
+.track {
+  background-image: linear-gradient(to left, rgba(13, 38, 12, 0.7), rgba(60, 248, 54, 0.7));
+  height: 8vh;
+  margin-top: 1vw;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+  animation: fadeIn 1s infinite alternate;
+}
+
 .tracklist-header{
 	border: 0.2rem solid #3CF836;
 	border-right-width: 0;

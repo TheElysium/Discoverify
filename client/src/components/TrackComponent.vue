@@ -18,7 +18,7 @@
 				<p>{{millisToMinutesAndSeconds(track.duration_ms)}}</p>
 			</div>
 			<div class="cover">
-				<img :src="track.album.images[0].url">
+				<img :src="track.album.images[0].url" :alt="track.name +' cover'" :style="loading ? 'opacity: 0;' : 'opacity:1;'" @load="loading=false">
 			</div>
     </div>
 	</div>
@@ -39,6 +39,7 @@ export default {
     return{
       preview: new Audio(this.track.preview_url),
       hovered: false,
+      loading: true
     }
   },
   created() {
@@ -134,6 +135,7 @@ export default {
 
 .cover img{
 	object-fit: cover;
+  transition: 0.2s ease-in-out;
 }
 
 .play{

@@ -12,11 +12,16 @@
 			</div>
 	</div>
 	<div class="tiles-container">
-		<div class="tiles-grid">
+		<div v-if="topItems" class="tiles-grid">
       <div v-for="item in topItems" :key="item">
         <TileComponent :item="parseItem(item)" @click="updateList(item)" :selected="selectedProp.tracks.filter(t => t.id === item.id).length !== 0 || selectedProp.artists.filter(t => t.id === item.id).length !== 0"></TileComponent>
       </div>
 		</div>
+    <div class="tiles-grid" v-else>
+      <div v-for="i in 5" :key="i" class="tile">
+        <img src="../assets/tile-placeholder.svg" alt="">
+      </div>
+    </div>
     <div class="more">
 			<p v-if="number === 5" @click="number=50" >more artists &darr;</p>
 			<p v-else @click="number=5" >less artists &uparrow;</p>
@@ -93,9 +98,11 @@ export default {
     },
     getTop() {
       if (this.selected === "tracks") {
+        this.topItems=null;
         this.getTopTracks(this.number);
       }
       else if (this.selected === "artists") {
+        this.topItems=null;
         this.getTopArtists(this.number);
       }
     },
@@ -131,13 +138,18 @@ export default {
 
 <style scoped>
 
-.placeholder{
+.tile{
   position: relative;
   width: 100%;
   height: 12vw;
   box-sizing: border-box;
   transition: 0.2s ease-in-out;
-  background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(60, 248, 54, 0.7));
+  animation: fadeIn 1s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
 }
 
 .more{

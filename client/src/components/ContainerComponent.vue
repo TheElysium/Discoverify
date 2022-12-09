@@ -62,11 +62,9 @@ export default {
     },
     updateSelected(val){
       this.selected = val;
+      this.recommendedTracks = []
       if(this.selected.tracks.length !== 0 || this.selected.artists.length !== 0) {
         this.fetchRecommendedTracks();
-      }
-      else {
-        this.recommendedTracks = []
       }
     },
     async fetchRecommendedTracks(){

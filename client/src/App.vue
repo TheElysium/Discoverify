@@ -5,6 +5,13 @@
     <LoginComponent class="login" v-else></LoginComponent>
     {{$route.query.code}}
   </div>
+  <footer>
+    <p>
+      © 2022 - Designed and developed with ♥ by Luka Signe--Morice
+      <br>
+      <a href="https://www.signemorice.com/" target="_blank">Website</a> - <a href="https://www.linkedin.com/in/luka-signe--morice/" target="_blank">LinkedIn</a>
+    </p>
+  </footer>
 </template>
 
 <script>
@@ -87,6 +94,20 @@ html{
   color: white;
 }
 
+footer{
+  width: 100%;
+  margin-top: 2vh;
+}
+
+footer p{
+  text-align: center;
+  font-weight: 400;
+}
+
+footer a{
+  color: white;
+}
+
 h2{
 	font-family: Sequel;
 	font-weight: 700;
@@ -102,6 +123,7 @@ p{
 .container {
   margin-left: 3vw;
   margin-right: 3vw;
+  min-height: 90vh;
   display: grid; 
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
   grid-auto-rows: min-content;
@@ -115,6 +137,7 @@ p{
   grid-area: components-container;
   grid-column: 3;
   align-self: center;
+  display: grid;
 }
 
 .header { grid-area: header; }
@@ -127,7 +150,7 @@ p{
   grid-template-columns: 1fr 1fr 1fr 1fr; 
   grid-auto-rows: min-content;
   gap: 0px 0px; 
-  grid-template-areas: 
+  grid-template-areas:
     "tracks-genres tracks-genres tracks-genres tracks-genres "
     "tracklist tracklist tracklist filters"; 
 }

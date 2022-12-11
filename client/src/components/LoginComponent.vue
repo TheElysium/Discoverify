@@ -24,11 +24,33 @@ export default {
 <style scoped>
 
 #login-button-container{
-  background-color: #3CF836;
-  width: 70%;
-  height: 5vh;
+  border: 0.2rem #3CF836 solid;
+  width: 60%;
   text-align: center;
   vertical-align: middle;
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
+
+#login-button-container:hover{
+  background-color: #3CF836;
+}
+
+#login-button-container:hover a{
+  color: black;
+}
+
+#login-button-container a{
+  color: white;
+  text-decoration: none;
+  margin-top: 1.5vh;
+  margin-bottom: 1.5vh;
+}
+
 
 </style>

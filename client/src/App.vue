@@ -171,4 +171,11 @@ p{
   html {font-size: 65%}
 }
 
+@media screen and (min-aspect-ratio: 21/9) {
+  .container {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+}
+
 </style>

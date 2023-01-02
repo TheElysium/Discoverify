@@ -58,6 +58,7 @@ export default {
     },
     updateFiltersValues(val){
       this.filters = val;
+      this.recommendedTracks = []
       this.fetchRecommendedTracks()
     },
     updateSelected(val){

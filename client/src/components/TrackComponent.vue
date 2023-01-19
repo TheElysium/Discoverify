@@ -55,7 +55,7 @@ export default {
       playTrack([this.track.uri])
     },
     fadeIn() {
-      if (this.preview.volume < .9 && this.hovered === true) {
+      if (this.preview.volume < .7 && this.hovered === true) {
         this.preview.volume += .1;
         setTimeout(this.fadeIn, 200);
       }

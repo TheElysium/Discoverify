@@ -55,8 +55,8 @@ export default {
       playTrack([this.track.uri])
     },
     fadeIn() {
-      if (this.preview.volume < .7 && this.hovered === true) {
-        this.preview.volume += .1;
+      if (this.preview.volume < .6 && this.hovered === true) {
+        this.preview.volume += .05;
         setTimeout(this.fadeIn, 200);
       }
     },
@@ -66,8 +66,8 @@ export default {
           this.preview.volume = 0
         }
         else{
-          this.preview.volume -= .1;
-          setTimeout(this.fadeOut, 100);
+          this.preview.volume -= .05;
+          setTimeout(this.fadeOut, 75);
         }
       }
     },

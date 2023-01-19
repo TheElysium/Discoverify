@@ -43,7 +43,7 @@ export default {
     SearchComponent
   },
   props: {
-    selectedProp: Object
+    selectedProp: Object,
   },
 	data() {
 		return{
@@ -96,14 +96,14 @@ export default {
       }
       this.$emit("updateSelected", updateSelection)
     },
-    getTop() {
+    async getTop() {
       if (this.selected === "tracks") {
         this.topItems=null;
-        this.getTopTracks(this.number);
+        await this.getTopTracks(this.number);
       }
       else if (this.selected === "artists") {
         this.topItems=null;
-        this.getTopArtists(this.number);
+        await this.getTopArtists(this.number);
       }
     },
     parseItem(item) {
@@ -121,8 +121,10 @@ export default {
     }
   },
 
-  created() {
-    this.getTop(5);
+  async created() {
+    await this.getTop(5);
+    console.log(this.topItems)
+    this.updateList(this.topItems[0])
   },
 
   watch: {

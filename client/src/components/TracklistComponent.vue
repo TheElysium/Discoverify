@@ -23,11 +23,6 @@
             <TrackComponent v-bind:track="track"></TrackComponent>
           </div>
         </div>
-        <div v-else-if="tracks.length !== 0 || artists.length !== 0">
-          <div v-for="i in 20" :key="i" class="track">
-<!--            <img src="../assets/track-fill.svg" alt="">-->
-          </div>
-        </div>
       </div>
     </div>
 </template>

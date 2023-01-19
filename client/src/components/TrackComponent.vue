@@ -8,8 +8,8 @@
         </a>
 			</div>
 			<div class="title">
-					<p class="name">{{track.name}}</p>
-					<p class="artist">{{track.artists[0].name}}</p>
+        <p :class="['name',scrollable ? 'scrollable' : '']" :ref="track.name+track.artists[0].name">{{track.name}}</p>
+        <p class="artist">{{track.artists[0].name}}</p>
 			</div>
 			<div class="album">
 				<p>{{track.album.name}}</p>
@@ -39,7 +39,8 @@ export default {
     return{
       preview: new Audio(this.track.preview_url),
       hovered: false,
-      loading: true
+      loading: true,
+      scrollable: false
     }
   },
   created() {
@@ -84,7 +85,10 @@ export default {
       // this.preview.load()
       // this.preview.volume = 0
       this.fadeOut()
-    }
+    },
+  },
+  mounted() {
+    this.scrollable = this.$refs[this.track.name+this.track.artists[0].name].scrollWidth > this.$refs[this.track.name+this.track.artists[0].name].clientWidth;
   }
 }
 </script>
@@ -100,7 +104,7 @@ export default {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: 1fr;
-	gap: 0px 0px;
+	gap: 0px 0.5vw;
 	grid-template-areas:
     "play title title title title title title title album album album album album duration . cover cover";
 	align-items:center;
@@ -117,10 +121,29 @@ export default {
 .title {
 	grid-area: title;
 	font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Automatically scroll name if it overflows */
+.title:hover .scrollable {
+  animation: scroll 5s linear infinite;
+}
+
+/* Move it (define the marquee) */
+@keyframes scroll {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-50%, 0); }
 }
 
 .album {
 	grid-area: album;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 .duration {
